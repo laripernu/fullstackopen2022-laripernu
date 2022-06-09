@@ -1,0 +1,9 @@
+title 0.6: Uusi muistiinpano
+
+note over selain:
+selain suorittaa js. koodia, joka tekee
+uuden muistiinpanon .json muodossa ja lähettää
+sen HTTP POST-pyynnöllä palvelimelle 
+end note
+selain->palvelin: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+palvelin-->selain: HTTP Status Code 201
