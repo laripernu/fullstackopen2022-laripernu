@@ -1,19 +1,11 @@
 import { useState } from 'react'
 
 const Display = (props) => {
-  if (props.text === "positive"){
-    return (
-    <div>
-      {props.text} {props.value} %
-    </div>)
-  }
-  else{
-    return (
+  return(
     <div>
       {props.text} {props.value}
-    </div>)
-  }
-  
+    </div>
+  )
 }
 
 const Button = (props) => {
@@ -22,6 +14,30 @@ const Button = (props) => {
       {props.text}
     </button>
   )
+}
+
+const Statistics = (props) => {
+  if (props.type === "all"){
+    return (
+      <div>
+        {props.type} {props.status[0]+props.status[1]+props.status[2]}
+      </div>
+    )
+  }
+  if (props.type === "average"){
+    return (
+      <div>
+        {props.type} {(1*props.status[0]+0*props.status[1]+(-1*props.status[2]))/(props.status[0]+props.status[1]+props.status[2])}
+      </div>
+    )
+  }
+  if (props.type === "positive"){
+    return (
+      <div>
+        {props.type} {100*props.status[0]/(props.status[0]+props.status[1]+props.status[2])} %
+      </div>
+    )
+  }
 }
 
 const App = () => {
@@ -40,9 +56,9 @@ const App = () => {
       <Display text={"good"} value={good} />
       <Display text={"neutral"} value={neutral} />
       <Display text={"bad"} value={bad} />
-      <Display text={"all"} value={good+neutral+bad} />
-      <Display text={"average"} value={(1*good+0*neutral+(-1*bad))/(good+neutral+bad)} />
-      <Display text={"positive"} value={100*good/(good+neutral+bad)} />
+      <Statistics type={"all"} status={[good, neutral, bad]}/>
+      <Statistics type={"average"} status={[good, neutral, bad]}/>
+      <Statistics type={"positive"} status={[good, neutral, bad]}/>
     </div>
   )
 }
