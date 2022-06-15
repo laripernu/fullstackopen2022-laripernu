@@ -11,16 +11,18 @@ const Button = (props) => {
 const StatisticLine = (props) => {
   if (props.text === "positive") {
     return (
-      <div>
-        {props.text} {props.value} %
-      </div>
+      <tr>
+        <td>{props.text} </td>
+        <td>{props.value} %</td>
+      </tr>
     )
   }
   else {
     return (
-      <div>
-        {props.text} {props.value}
-      </div>
+      <tr>
+        <td>{props.text} </td>
+        <td>{props.value} </td>
+      </tr>
     )
   }
 }
@@ -38,12 +40,16 @@ const App = () => {
       <Button handleClick={() => setNeutral(neutral + 1)} text="neutral"/>
       <Button handleClick={() => setBad(bad + 1)} text="bad"/>
       <h3>statistics</h3>
-      <StatisticLine text="good" value ={good} />
-      <StatisticLine text="neutral" value ={neutral} />
-      <StatisticLine text="bad" value ={bad} />
-      <StatisticLine text="all" value ={good+neutral+bad} />
-      <StatisticLine text="average" value ={(1*good+0*neutral+(-1*bad))/(good+neutral+bad)} />
-      <StatisticLine text="positive" value ={100*good/(good+neutral+bad)} />
+      <table>
+        <tbody>
+          <StatisticLine text="good" value ={good} />
+          <StatisticLine text="neutral" value ={neutral} />
+          <StatisticLine text="bad" value ={bad} />
+          <StatisticLine text="all" value ={good+neutral+bad} />
+          <StatisticLine text="average" value ={parseFloat((1*good+0*neutral+(-1*bad))/(good+neutral+bad)).toFixed(1)} />
+          <StatisticLine text="positive" value ={parseFloat(100*good/(good+neutral+bad)).toFixed(1)} />
+        </tbody>
+      </table>
     </div>
   )
 }
