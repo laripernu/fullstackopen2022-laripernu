@@ -60,7 +60,6 @@ const App = () => {
 
   const [selected, setSelected] = useState(0)
   const [points, setPoints] = useState(new Array(anecdotes.length).fill(0))
-  console.log(points)
   return (
     <div>
       <h3>Anecdote of the day</h3>
