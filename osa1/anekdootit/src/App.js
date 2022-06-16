@@ -11,6 +11,18 @@ function addPoint (points, i) {
   return copy
 }
 
+function findIndexOfMax(array) {
+  let max;
+  let indexOfMax;
+  for (var i = 0; i < array.length; i++) {
+    if (!max || array[i] > max) {
+      max = array[i];
+      indexOfMax = i;
+    }
+  }
+  return indexOfMax;
+}
+
 const Button = (props) => {
   return (
       <button onClick={props.handleClick}>
@@ -23,6 +35,14 @@ const VoteDisplay = (props) => {
   return (
     <div>
       has {props.points[props.i]} votes
+    </div>
+  )
+}
+
+const MostVotedDisplay = (props) => {
+  return (
+    <div>
+      {props.anecdote}
     </div>
   )
 }
@@ -43,12 +63,18 @@ const App = () => {
   console.log(points)
   return (
     <div>
+      <h3>Anecdote of the day</h3>
       {anecdotes[selected]}
       <div>
         <VoteDisplay points={points} i={selected}/>
         <Button text={"vote"} handleClick={() => setPoints(addPoint(points, selected))}/>
         <Button text={"next anecdote"} handleClick={() => setSelected(getRandomInt(anecdotes.length))}/>
       </div>
+      <h3>  
+        Anecdote with most votes
+      </h3>
+      <MostVotedDisplay anecdote={anecdotes[findIndexOfMax(points)]} />
+      <VoteDisplay points={points} i={findIndexOfMax(points)}/>
     </div>
   )
 }
