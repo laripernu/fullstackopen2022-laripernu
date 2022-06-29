@@ -1,40 +1,40 @@
-const Course = (course) => {
+const Course = ({course}) => {
 
-  const Header = (course) => {
+  const Header = ({course}) => {
     return (
       <>
-        <h1>{course.course.course.name}</h1>
+        <h1>{course.name}</h1>
       </>
     )
   }
 
-  const Content = (course) => {
+  const Content = ({course}) => {
     return (
       <div>
-        {course.course.course.parts.map(function(part){
+        {course.parts.map(function(part){
           return <Part part={part} key={part.id}/>
         })}
       </div>
     )
   }
 
-  const Part = (part) => {
+  const Part = ({part}) => {
     return (
       <>
         <p>
-          {part.part.name} {part.part.exercises}
+          {part.name} {part.exercises}
         </p>
       </>
     )
   }
 
-  const Total = (course) => {
-
-    let total = 0;
-    course.course.course.parts.forEach(countSum);
-    function countSum(item) {
-      total += item.exercises;
-    }
+  const Total = ({parts}) => {
+    
+    const exercise_counts = parts.map(element => element.exercises)
+    
+    const total = exercise_counts.reduce( (accumulator, currentValue) => {
+      return accumulator + currentValue
+    }, 0)
 
     return (
       <>
@@ -49,12 +49,11 @@ const Course = (course) => {
     <>
       <Header course={course}/>
       <Content course={course}/>
-      <Total course={course}/>
+      <Total parts={course.parts}/>
     </>
   )
 
 }
-
 
 const App = () => {
   const course = {
