@@ -1,13 +1,3 @@
-const Total = (course) => {
-  return (
-    <>
-      <p>
-      Number of exercises {course.course.parts[0].exercises + course.course.parts[1].exercises + course.course.parts[2].exercises}
-      </p>
-    </>
-  )
-}
-
 const Course = (course) => {
 
   const Header = (course) => {
@@ -38,10 +28,28 @@ const Course = (course) => {
     )
   }
 
+  const Total = (course) => {
+
+    let total = 0;
+    course.course.course.parts.forEach(countSum);
+    function countSum(item) {
+      total += item.exercises;
+    }
+
+    return (
+      <>
+        <b>
+          total of {total} exercises
+        </b>
+      </>
+    )
+  }
+
   return (
     <>
       <Header course={course}/>
       <Content course={course}/>
+      <Total course={course}/>
     </>
   )
 
@@ -69,8 +77,8 @@ const App = () => {
         id: 3
       },
       {
-        name: 'The fourth part',
-        exercises: 44,
+        name: 'Redux',
+        exercises: 11,
         id: 4
       }
     ]
