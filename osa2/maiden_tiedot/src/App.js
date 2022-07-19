@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import './App.css';
 import axios from 'axios'
 
 const SearchForm = (props) => {
@@ -11,21 +10,55 @@ const SearchForm = (props) => {
   )
 }
 
-const CountryDisplay = ({countries, filterString}) => {
-  if (countries !== undefined) {
-
-    const countryNames = []
-
-    countries.forEach(element => {
-      if (element.name.common.toUpperCase().indexOf(filterString.toUpperCase()) >= 0) {
-        countryNames.push(element.name.common)
-      }
-    })
-    return (
-      countryNames.map(name => (<div key={name}>{name}</div>))
-    )
+const Country = (props) => {
+  let currentCountry = null
+  props.countries.forEach(element => {
+    if (element.name.common === props.name) {
+      currentCountry = element
     }
+  })
+  console.log(currentCountry)
+  // TODO: finish the country details listings
+  return(
+    <div key={props.name}>
+      <h1>{currentCountry.name.common}</h1>
+      <p>capital {currentCountry.capital}</p>
+      <p>area</p>
+      <p>languages: </p>
+      <img src={currentCountry.flags.png}/>
+    </div>
+  )
+}
+
+const CountryDisplay = ({countries, filterString}) => {
+
+  const countryNames = []
+
+  countries.forEach(element => {
+    if (element.name.common.toUpperCase().indexOf(filterString.toUpperCase()) >= 0) {
+      countryNames.push(element.name.common)
+    }
+  })
+
+  console.log(countryNames)
+
+  if (countryNames.length === 1) {
+    return (<Country countries={countries} name={countryNames[0]}/>)
   }
+  else if (countryNames.length >= 10) {
+    // TODO: change this to not show when filterString is EMPTY
+    return (
+      <div>
+        Too many countries
+      </div>
+    )
+  }
+  else {
+    return(
+      countryNames.map(element => <div>{element}</div>)
+    )
+  }
+}
 
 
 
